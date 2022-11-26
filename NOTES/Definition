@@ -1,0 +1,385 @@
+
+
+                                             ---------CLASS---------
+
+        > A class is a group of variables of different data types and group of methods.
+
+        > "A class is a template or blueprint from which objects can be created"
+
+        > Example: A car have some attributes like Seats, Type of engine, Tyres.
+                    - When creating a object, every object have different combination of the above attributes.
+
+                                            ---------OBJECTS---------
+        > Object is an instance of a class.
+
+        > All data members and member functions of the class can be accessed with the help of objects.
+
+        > public class template{
+             int tyre;
+             int seats;                                           //Variables
+             String carName;
+             String engineType;
+
+             void display(){
+              System.out.println("Display some values...");       //Method
+             }
+
+             public static void main(String args[]){
+                     template obj = new template();              //Object
+             }
+          }
+
+       -----------------------------------------------------------------------------------------------------------------
+                                            ---------CONSTRUCTOR---------
+       >Used to initialize a object(variables).
+
+       > public class template{
+                 int variable;
+
+                 public template(){
+                                                                // Empty constructor
+                 }
+
+                 public template(int variable){
+                      this.variable = variable;                 // Constructor with parameter
+                 }
+
+                 void display(){
+                      System.out.println(variable);
+                 }
+
+                 public static void main(String args[]){
+                      template obj1 = new template();           // Object created using empty constructor
+                      obj1.display();                           // Calling the display() using obj1
+
+                      template obj2 = new template(20);         // Object created using constructor with parameter
+                      obj2.display();                           // Calling the display() using obj2
+                 }
+         }
+
+       -----------------------------------------------------------------------------------------------------------------
+                                            ---------DESTRUCTOR---------
+       > We cannot destroy a object manually.
+            Unused object can be deleted from memory using GARBAGE COLLECTION.
+
+            By default, Every class inherits Object class.
+                        > finalize() method in Object class gets executed when a object is destroyed.
+
+            To visualize or to know when a object is destroyed,
+                        Write some println() statements.
+
+                        protected void finalize(){
+                                System.out.println("object is destroyed");
+                            }
+            NOTE:
+                > Sometimes the finalize() won't be executed until n number of objects are being created and unused.
+
+
+                        for(int i=0;i<10000000;i++){
+                           template obj1 = new template();
+                        }
+
+                > obj1 = ref variable
+                  new template() = object
+                        - in every iteration in for loop, a new object is being created for the same ref variable,
+                          the previous objects go unused and the object is freed from the memory.
+
+       -----------------------------------------------------------------------------------------------------------------
+                                            ---------INHERITANCE---------
+       > Acquiring base class properties
+
+       keyword: extends
+
+       skeleton:   public class childClassName extends baseClassName{
+
+                   }
+            NOTE:
+                > A class cannot inherit more than 1 class.
+                > Accessibility goes upwards, child class can access base class properties
+                    but base class cannot access child class properties.
+
+            TYPES:
+                  1.Single inheritance:
+                       > 1 child class inherits 1 base class.
+                  2.Multilevel inheritance:
+                       > 1 base class, 1 intermediate class inherits base class and
+                         the child class inherits the intermediate class.
+                  3.Multiple inheritance: [NOT ALLOWED]
+                       > A class cannot inherit more than 1 class.
+                  4.Hierarchical inheritance:
+                       > Multiple child class inherits 1 base class.
+                  5.Hybrid inheritance: [NOT ALLOWED]
+                       > Combination of Single and Multiple inheritance.
+
+       -----------------------------------------------------------------------------------------------------------------
+                                            ---------ACCESS SPECIFIERS---------
+
+       >Restrict the Scope or visibility of a class,constructor,variables,methods.
+
+            TYPES:
+                  1.Default – No keyword required
+                  2.Private
+                  3.Protected
+                  4.Public
+
+            1. Private:
+                -Only inside the class, where its declared as private.
+            2. Public:
+                -Anywhere.
+            3. Protected:
+                -Anywhere, Except Non-subclass from different package.
+            4. Default:
+                -Only within the same package.
+       -----------------------------------------------------------------------------------------------------------------
+                                            ---------POLYMORPHISM---------
+       >Representing a single entity in multiple ways.
+
+            TYPES:
+                 1.Static Polymorphism(compile time) via Method Overloading.
+                 2.Dynamic Polymorphism(run time) via Method Overriding.
+
+                              ------------ [Check polymorphism folder for code]  ------------
+            1.Method Overloading:
+                    >Same method name,Different number of parameters and
+                     Datatype of the parameter must be same as method declared.
+            2.Method Overriding:
+                    >Same method name, We create a object for child class. if we call a method using the object,
+                     it checks for the method inside child class and execute. if the method in child is not available
+                     method in parent class will be executed.
+                    > Use @Override above child class method to know it can override the parent class method.
+       -----------------------------------------------------------------------------------------------------------------
+                                             ---------ENCAPSULATION---------
+       >Encapsulation is a process of wrapping code and data together into a single unit. Restrict the direct access to
+        some components of an object.(Protecting the data)
+
+       >Declaring as private access specifier, we restrict the accessibility from outside.
+         To access and make changes, call the getter and setter methods.
+
+                public class className{
+                        private int i=100;
+                        public void getVal(){
+                             System.out.println(i);
+                        }
+                        public void setVal(int i){
+                             this.i=i;
+                        }
+                }
+                public class Main{
+                        public static void main(String args[]){
+                              className c=new className();
+                              c.getVal();
+                              c.setVal(200);
+                              c.getVal();
+                        }
+                }
+       -----------------------------------------------------------------------------------------------------------------
+                                             ---------ABSTRACTION---------
+       >Hiding unnecessary details and display the main contents.
+
+       >GO TO ABSTRACT CLASS BELOW.
+       -----------------------------------------------------------------------------------------------------------------
+                                             ---------ABSTRACT CLASS---------
+       >Like a normal class, the method will be declared in base class
+         and body of the method is declared in child class.
+       >Base class depends on Child class for body of method.
+       >Method overriding.
+
+
+       skeleton:
+                public abstract class base{
+                    abstract void method(parameter);
+                 }
+                 public class child extends base{
+                    @Override
+                    void method(parameter){
+                           //Code
+                    }
+                 }
+       object:
+                >Child class:
+
+                child c = new child();
+
+                >Base class(Abstract class):
+
+                base b = new base(){
+                    @Override
+                    void method(parameter){
+                            //code
+                    }
+                };
+       NOTE:
+           ALLOWED INSIDE ABSTRACT CLASS:
+                 >Normal constructor
+                 >Static methods
+                 >Normal methods
+       -----------------------------------------------------------------------------------------------------------------
+                                             ---------INTERFACE---------
+
+       >Acquiring properties(like multiple inheritance).
+
+       keyword: implements
+
+       NOTE:
+          >Variables should be static and final.
+          >Like Abstract methods.
+
+       skeleton:
+                public interface interfaceName1{
+                        static final int variable = value;
+
+                        void method1();
+
+                }
+
+                public interface interfaceName2{
+                        static final int variable = value;
+
+                        void method2();
+
+                }
+
+                public class className implements interfaceName1,interfaceName2{
+                        @Override
+                        void method1(){
+
+                        }
+
+                        @Override
+                        void method2(){
+
+                        }
+                }
+
+                public class Main{
+                        public static void main(String args[]){
+                        className c= new ClassName();
+                        c.method1();
+                        c.method2();
+                        }
+                }
+
+       NOTE 2:
+            > We can declare a default void method() with body inside interface,
+            even if we don't call the method, the code inside default method() will be executed.
+            > We can inherit a interface to another interface.
+            > Static method can be declared inside interface with body.
+       -----------------------------------------------------------------------------------------------------------------
+                                             ---------GENERICS---------
+       >Avoid code re-usability.
+       >Make a class take particular type of Wrapper Class(No primitive datatypes).
+
+          <T> - Type parameter or Template.
+
+       Generic Class:
+
+          Skeleton:
+
+                public class print <T>{
+                        T variable;
+
+                        public print(T variable){
+                            this.variable = variable;
+                        }
+
+                        void display(){
+                            System.out.println(variable);
+                        }
+                }
+                public class Main{
+                        public static void main(String args[]){
+
+                        print<Integer> i= new print<>(25);  //Never pass a value other than the <T> as value for object.
+                        i.display();
+                        print<String> s = new print<>("Hello");
+                        s.display();
+                        }
+                }
+       Generic method:
+
+          Skeleton:
+
+          1.    public static <T> void display(T x){     //<T> used to declare x takes the type of class T
+                    System.out.println(x);               // Takes 2 parameters? (T x,V y)
+                }
+
+          2.    public static T display(T x){
+                    return x;
+                }
+
+           NOTE:
+
+             Example:
+
+                    public class print <T>{
+                            T[] variable;
+                            int size=10;
+
+                            public print(T[] variable){
+                                this.variable = new T[10];      //Error, We cannot instantiate T.
+                            }
+
+                            void display(){
+                                System.out.println(variable);
+                            }
+                        }
+
+                    >When bytecode is generated, it contains classes,methods and interfaces.
+                     Therefore it doesn't know the type of object type of type T.
+
+                                           ---------BOUNDED GENERICS---------
+
+       >We can restrict the type to pass into the class.
+
+            Type-1:
+                    public class className1 <T extends ClassName2>{
+
+                            //We can use the methods in ClassName2 here too.
+                            //ClassName2 is either a userdefined class or predefined super class.
+
+                    }
+            Type-2:
+                    public class className <T extends interfaceName>{
+                                // "Extends" interface
+
+                    }
+            Type-3:
+                    public class className <T extends className & interfaceName>{
+                               // "Extends combination of class and interface"
+                               // order of inheriting is class and then add "n" interfaces using &
+                    }
+                                           ---------WILDCARD GENERICS---------
+       >When we doesn't know what type the class takes,use wildcard(?)
+
+            skeleton:
+
+                Class:
+                    public class className1 <? extends className2>{
+
+                    }
+                Method-types:
+                    public void methodName(List<className> list){
+                               //takes only className type.
+                    }
+
+                    public void methodName(List<? extends className> list){
+                               //takes className and as well as sub-class of same className.
+                    }
+
+       -----------------------------------------------------------------------------------------------------------------
+                                           ---------LAMBDA FUNCTION---------
+       >A lambda expression is a short block of code which takes in parameters and returns a value.
+
+            Example:
+                    Like forEach loop which takes single parameter(Array) and display values in it.
+
+                    ArrayList<Integer> al = new ArrayList<>();
+                    // add some values to al
+
+                    al.forEach( (value)->System.out.println(value));
+            NOTE:
+                >No method name
+                >Use "->"
+       -----------------------------------------------------------------------------------------------------------------
+                                              ---------EXCEPTION HANDLING---------
+       >If a error occurs, the code stops executing. we can handle a error and still execute the code.
